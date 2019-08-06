@@ -38,6 +38,28 @@ public class Vigenere {
 
     public static String decypher (String message, String key, boolean autokey) {
         ArrayList<Character> message2 = Utilities.toArray(message);
-
+        String fixedKey;
+        StringBuilder decyphered = new StringBuilder();
+        if (!autokey) {
+            fixedKey = adjustKeyLength(key, message.length());
+            int round = 0;
+            for (char c : message2) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(c);
+                StringBuilder sb2 = new StringBuilder();
+                sb2.append(fixedKey.charAt(round));
+                if (alphabet.contains(sb) && alphabet.contains(sb2)) {
+                    int pos = alphabet.indexOf(c)-alphabet.indexOf(fixedKey.charAt(round));
+                    if (pos < 0) {
+                        pos+=alphabet.length();
+                    }
+                    decyphered.append(alphabet.charAt(pos));
+                    round++;
+                }else{
+                    decyphered.append(c);
+                }
+            }
+        }
+        return decyphered.toString();
     }
 }

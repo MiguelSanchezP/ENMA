@@ -18,14 +18,14 @@
         <MenuBar>
             <Menu text="Methods" fx:id="MMethods">
                 <RadioMenuItem text="ROT" fx:id="RMIROT" onAction="#handleROT"/>
-                <RadioMenuItem text="Cesar" fx:id="RMICesar" onAction="#handleCesar"/>
-                <RadioMenuItem text="Vigenere" fx:id="RMIVigenere" onAction="#handleVigenere"/>
+                <RadioMenuItem text="Caesar" fx:id="RMICaesar" onAction="#handleCaesar"/>
+                <RadioMenuItem text="Vigenère" fx:id="RMIVigenere" onAction="#handleVigenere"/>
             </Menu>
         </MenuBar>
     </top>
     <center>
-        <GridPane vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">
-<!--        <GridPane vgap="10" hgap="10" alignment="CENTER">-->
+<!--        <GridPane vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">-->
+        <GridPane vgap="10" hgap="10" alignment="CENTER">
             <TextArea GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="TAInput" promptText="Write here the message to be cyphered"/>
             <Button GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#handleButton" text="Cypher"/>
             <Button GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#handleButtonD" text="Decypher" alignment="BASELINE_RIGHT"/>

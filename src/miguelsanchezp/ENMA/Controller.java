@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Controller {
     @FXML
-    private RadioMenuItem RMIROT, RMICesar, RMIVigenere;
+    private RadioMenuItem RMIROT, RMICaesar, RMIVigenere;
     @FXML
     private Menu MMethods;
     @FXML
@@ -30,7 +30,7 @@ public class Controller {
 
     public void initialize () {
         CypheringIds.add(RMIROT.getId());
-        CypheringIds.add(RMICesar.getId());
+        CypheringIds.add(RMICaesar.getId());
         CypheringIds.add(RMIVigenere.getId());
         RMIROT.setSelected(true);
         CBSpaces.setValue("Keep");
@@ -57,8 +57,8 @@ public class Controller {
     }
 
     @FXML
-    private void handleCesar () {
-        handleMethodRMI(RMICesar.getId());
+    private void handleCaesar() {
+        handleMethodRMI(RMICaesar.getId());
         numberRequired(false);
         keyRequired(false);
     }
@@ -76,8 +76,8 @@ public class Controller {
         if (method.equals("ROT")) {
             cypherROT();
         }
-        if (method.equals("Cesar")){
-            cypherCesar();
+        if (method.equals("Caesar")){
+            cypherCaesar();
         }
         if (method.equals("Vigenere")) {
             cypherVigenere();
@@ -90,11 +90,11 @@ public class Controller {
          if (method.equals("ROT")) {
              decypherROT();
          }
-         if (method.equals("Cesar")) {
-             decypherCesar();
+         if (method.equals("Caesar")) {
+             decypherCaesar();
          }
          if (method.equals("Vigenere")) {
-             handleVigenere();
+             decypherVigenere();
          }
     }
 
@@ -132,7 +132,7 @@ public class Controller {
         }
     }
 
-    private void cypherCesar () {
+    private void cypherCaesar() {
         if (TAInput.getText() != null) {
             TAOutput.setText(ROT.cypher(TAInput.getText(), 3, CurrentSpaceTreatment));
         }else{
@@ -140,7 +140,7 @@ public class Controller {
         }
     }
 
-    private void decypherCesar () {
+    private void decypherCaesar() {
         if (TAInput.getText() != null) {
             TAOutput.setText(ROT.decypher(TAInput.getText(), 3));
         }else{
@@ -153,6 +153,14 @@ public class Controller {
             TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
         }else{
             TAOutput.setText("Either the message or the key was as null");
+        }
+    }
+
+    private void decypherVigenere () {
+        if ((TAInput.getText()!=null) && (TFKey.getText()!=null)) {
+            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
+        }else{
+            TAOutput.setText("Either the message or the key was a null");
         }
     }
 
