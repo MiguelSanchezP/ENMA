@@ -39,16 +39,46 @@ public class Utilities {
         return sb.toString().toUpperCase();
     }
 
-    public static String adjustKeyLength (String key, int length, String message) {
+    public static String adjustKeyLength (String key, int length, String message) { //check this method (cracks when keeping spaces)
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        //----------------------------------------------------------------------------------
+        /*
         StringBuilder sb = new StringBuilder ();
+        int round = 0;
         for (int i = 0; i<length; i++) {
             if (i<key.length()) {
-                sb.append(key.charAt(i));
+                sb.append(key.charAt(round));
+                round++;
             }else{
-                sb.append(message.charAt(i-key.length()));
+                StringBuilder sb2 = new StringBuilder();
+                sb2.append(Character.toUpperCase(message.charAt(round-key.length())));
+                System.out.println("Outside "+ i);
+                if (alphabet.contains(sb2)) {
+                    sb.append(sb2);
+                }else{
+                }
+            }
+        }*/
+        //---------------------------------------------------------------------------------
+        int size = 0;
+        StringBuilder parsedKey = new StringBuilder();
+        while (size<length) { //add variable of round for here
+            if (size<key.length()) {
+                parsedKey.append(key.charAt(size));
+                size += 1;
+            }else{
+                StringBuilder checker = new StringBuilder();
+                checker.append(message.charAt(size-key.length()));
+                if (alphabet.contains(checker)) {
+                    parsedKey.append(message.charAt(size)); //<--
+                    size+=1;
+                }
+                //round+=1 --> necessary
             }
         }
-        return sb.toString().toUpperCase();
+//        System.out.println(sb.toString());
+//        return sb.toString().toUpperCase();
+        return parsedKey.toString().toUpperCase();
     }
 
     public static ArrayList<Character> prepareWithTreatment (String message, String treatment) {
