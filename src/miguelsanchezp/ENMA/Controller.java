@@ -192,9 +192,9 @@ public class Controller {
     @FXML
     private void notifyError (String s, int a) {
         if (a == 0) {
-            LInformation.setStyle("-fx-text-fill: red");
+            LInformation.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
         }else{
-            LInformation.setStyle("-fx-text-fill: green");
+            LInformation.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
         }
         switch (s) {
             case "invalidKey":
