@@ -47,4 +47,7 @@
             <RadioButton GridPane.columnIndex="2" GridPane.rowIndex="5" text="Autokey" fx:id="RBAutoKey"/>
         </GridPane>
     </center>
+    <bottom>
+        <Label fx:id="LInformation" style="-fx-text-fill:red"/>
+    </bottom>
 </BorderPane>
