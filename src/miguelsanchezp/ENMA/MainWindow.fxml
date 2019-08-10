@@ -26,14 +26,15 @@
     <center>
 <!--        <GridPane vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">-->
         <GridPane vgap="10" hgap="10" alignment="CENTER">
-            <TextArea GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="TAInput" promptText="Write here the message to be cyphered"/>
-            <Button GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#handleButton" text="Cypher"/>
-            <Button GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#handleButtonD" text="Decypher" alignment="BASELINE_RIGHT"/>
-            <TextArea GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="TAOutput" promptText="The cyphered message will be displayed here"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="3" text="Number of positions" fx:id="LNumber"/>
-            <Spinner GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="SNumber" editable="true" initialValue="13" min="1" max="25"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="Spaces"/>
-            <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="CBSpaces" onAction="#handleCBSpaces">
+            <Label GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="LInformation"/>
+            <TextArea GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="TAInput" promptText="Write here the message to be cyphered"/>
+            <Button GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#handleButton" text="Cypher"/>
+            <Button GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#handleButtonD" text="Decypher" alignment="BASELINE_RIGHT"/>
+            <TextArea GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="TAOutput" promptText="The cyphered message will be displayed here"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="4" text="Number of positions" fx:id="LNumber"/>
+            <Spinner GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="SNumber" editable="true" initialValue="13" min="1" max="25"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="Spaces"/>
+            <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="CBSpaces" onAction="#handleCBSpaces">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Keep"/>
@@ -42,12 +43,9 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="5" text="Key" fx:id="LKey"/>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" promptText="Write here your key" fx:id="TFKey"/>
-            <RadioButton GridPane.columnIndex="2" GridPane.rowIndex="5" text="Autokey" fx:id="RBAutoKey"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="6" text="Key" fx:id="LKey"/>
+            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Write here your key" fx:id="TFKey"/>
+            <RadioButton GridPane.columnIndex="2" GridPane.rowIndex="6" text="Autokey" fx:id="RBAutoKey"/>
         </GridPane>
     </center>
-    <bottom>
-        <Label fx:id="LInformation" style="-fx-text-fill:red"/>
-    </bottom>
 </BorderPane>
