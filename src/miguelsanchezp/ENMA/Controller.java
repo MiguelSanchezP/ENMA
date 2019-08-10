@@ -119,101 +119,64 @@ public class Controller {
     private void cypherROT () {
         if (TAInput.getText() != null) {
             if (TAInput.getText().isEmpty()) {
-                notifyError("emptyInput");
+                notifyError("emptyInput", 0);
             }else {
                 TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue(), CurrentSpaceTreatment));
-                notifyData("complete");
+                notifyError("complete", 1);
             }
         }else{
-            notifyError("nullInput");
+            notifyError("nullInput", 0);
         }
     }
 
     private void decypherROT () {
         if (TAInput.getText()!=null) {
             if (TAInput.getText().isEmpty()) {
-                notifyError("emptyInput");
+                notifyError("emptyInput", 0);
             }else {
                 TAOutput.setText(ROT.decypher(TAInput.getText(), (int) SNumber.getValue()));
-                notifyData("complete");
+                notifyError("complete", 1);
             }
         }else{
-            notifyError("nullInput");
+            notifyError("nullInput", 0);
         }
     }
 
     private void cypherCaesar() {
         if (TAInput.getText() != null) {
             if (TAInput.getText().isEmpty()){
-                notifyError("emptyInput");
+                notifyError("emptyInput", 0);
             }else {
                 TAOutput.setText(ROT.cypher(TAInput.getText(), 3, CurrentSpaceTreatment));
-                notifyData("complete");
+                notifyError("complete", 1);
             }
         }else{
-            notifyError("nullInput");
+            notifyError("nullInput", 0);
         }
     }
 
     private void decypherCaesar() {
         if (TAInput.getText() != null) {
             if (TAInput.getText().isEmpty()) {
-                notifyError("emptyInput");
+                notifyError("emptyInput", 0);
             }else {
                 TAOutput.setText(ROT.decypher(TAInput.getText(), 3));
-                notifyData("complete");
+                notifyError("complete", 1);
             }
         }else{
-            notifyError("nullInput");
+            notifyError("nullInput", 0);
         }
     }
 
     private void cypherVigenere () {
-        if (TAInput.getText() != null) {
-            if(!TAInput.getText().isEmpty()) {
-                if (TFKey.getText()!=null) {
-                    if (!TFKey.getText().isEmpty()) {
-                        if (isValid(TFKey.getText())) {
-                            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
-                        } else {
-                            notifyError("invalidKey");
-                        }
-                    } else {
-                        notifyError("emptyKey");
-                    }
-                }else{
-                    notifyError("nullKey");
-                }
-            }else{
-                notifyError("emptyInput");
-            }
-        }else{
-            notifyError("nullInput");
+        if (revised()) {
+            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
         }
     }
 
     private void decypherVigenere () {
-        if (TAInput.getText()!=null) {
-            if (!TAInput.getText().isEmpty()) {
-                if (TFKey.getText() != null) {
-                    if (!TFKey.getText().isEmpty()) {
-                        if (isValid(TFKey.getText())) {
-                            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
-                            notifyData("completed");
-                        }else{
-                            notifyError("invalidKey");
-                        }
-                    }else{
-                        notifyError("emptyKey");
-                    }
-                }else{
-                    notifyError("nullKey");
-                }
-            }else{
-                notifyError("emptyInput");
-            }
-        }else{
-            notifyError("nullInput");
+        if (revised()) {
+            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
         }
     }
 
@@ -227,21 +190,35 @@ public class Controller {
     }
 
     @FXML
-    private void notifyError (String s) {
-        if (s.contains("invalidKey")) {
-            LInformation.setText("THE KEY IS INVALID\n");
+    private void notifyError (String s, int a) {
+        if (a == 0) {
+            LInformation.setStyle("-fx-text-fill: red");
+        }else{
+            LInformation.setStyle("-fx-text-fill: green");
         }
-        if (s.contains("nullKey")) {
-            LInformation.setText("THE KEY IS NULL\n");
-        }
-        if (s.contains("nullInput")) {
-            LInformation.setText("THE INPUT IS NULL\n");
-        }
-        if (s.contains("emptyKey")) {
-            LInformation.setText("THE KEY IS EMPTY\n");
-        }
-        if (s.contains("emptyInput")) {
-            LInformation.setText("THE INPUT IS EMPTY\n");
+        switch (s) {
+            case "invalidKey":
+                LInformation.setText("THE KEY IS INVALID");
+                break;
+            case "nullKey":
+                LInformation.setText("THE KEY IS NULL");
+                break;
+            case "nullInput":
+                LInformation.setText("THE INPUT IS NULL");
+                break;
+            case "emptyKey":
+                LInformation.setText("THE KEY IS EMPTY");
+                break;
+            case "emptyInput":
+                LInformation.setText("THE INPUT IS EMPTY");
+                break;
+            case "complete":
+                LInformation.setText("THE INPUT WAS SUCCESSFULLY CYPHERED");
+                break;
+            default:
+                LInformation.setStyle("-fx-text-fill: red");
+                LInformation.setText("THE ERROR WAS UNHANDLED, PLEASE REPORT");
+                break;
         }
     }
 
@@ -257,17 +234,29 @@ public class Controller {
         return true;
     }
 
-    private void checkParameters () {
-        StringBuilder sb = new StringBuilder();
-        if (TAInput.getText() == null) {
-            sb.append("nullInput");
+    private boolean revised () {
+        if (TAInput.getText() != null) {
+            if(!TAInput.getText().isEmpty()) {
+                if (TFKey.getText()!=null) {
+                    if (!TFKey.getText().isEmpty()) {
+                        if (isValid(TFKey.getText())) {
+                            notifyError("complete", 1);
+                            return true;
+                        } else {
+                            notifyError("invalidKey", 0);
+                        }
+                    } else {
+                        notifyError("emptyKey", 0);
+                    }
+                }else{
+                    notifyError("nullKey", 0);
+                }
+            }else{
+                notifyError("emptyInput", 0);
+            }
+        }else{
+            notifyError("nullInput", 0);
         }
-        if (TFKey.getText()==null){
-            sb.append("nullKey");
-        }
-        if (!isValid(TFKey.getText())) {
-            sb.append("invalidKey");
-        }
-        notifyError(sb.toString());
+        return false;
     }
 }
