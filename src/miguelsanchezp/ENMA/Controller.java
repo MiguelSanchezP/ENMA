@@ -198,7 +198,7 @@ public class Controller {
         }
         switch (s) {
             case "invalidKey":
-                LInformation.setText("THE KEY IS INVALID");
+                LInformation.setText("THE KEY IS INVALID (REVISE SPACES, NUMBERS, SPECIAL CHARACTERS)");
                 break;
             case "nullKey":
                 LInformation.setText("THE KEY IS NULL");
@@ -213,7 +213,7 @@ public class Controller {
                 LInformation.setText("THE INPUT IS EMPTY");
                 break;
             case "complete":
-                LInformation.setText("THE INPUT WAS SUCCESSFULLY CYPHERED");
+                LInformation.setText("THE INPUT WAS SUCCESSFULLY CYPHERED :)");
                 break;
             default:
                 LInformation.setStyle("-fx-text-fill: red");
