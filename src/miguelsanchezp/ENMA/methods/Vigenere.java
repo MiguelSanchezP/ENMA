@@ -32,7 +32,6 @@ public class Vigenere {
                 cyphered.append(c);
             }
         }
-        System.out.println("The used key was " + fixedKey);
         return cyphered.toString();
     }
 
@@ -80,7 +79,6 @@ public class Vigenere {
                     decyphered.append(c);
                 }
             }
-            System.out.println("The deduced key was: " + sbKF.toString());
         }
         return decyphered.toString();
     }
