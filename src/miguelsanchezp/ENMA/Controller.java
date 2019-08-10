@@ -16,7 +16,7 @@ public class Controller {
     @FXML
     private Spinner SNumber;
     @FXML
-    private Label LNumber, LKey;
+    private Label LNumber, LKey, LInformation;
     @FXML
     private ComboBox<String> CBSpaces;
     @FXML
@@ -118,49 +118,102 @@ public class Controller {
 
     private void cypherROT () {
         if (TAInput.getText() != null) {
-            TAOutput.setText(ROT.cypher(TAInput.getText(), (int)SNumber.getValue(), CurrentSpaceTreatment));
+            if (TAInput.getText().isEmpty()) {
+                notifyError("emptyInput");
+            }else {
+                TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue(), CurrentSpaceTreatment));
+                notifyData("complete");
+            }
         }else{
-            TAOutput.setText("The entered message was a null");
+            notifyError("nullInput");
         }
     }
 
     private void decypherROT () {
         if (TAInput.getText()!=null) {
-            TAOutput.setText(ROT.decypher(TAInput.getText(), (int) SNumber.getValue()));
+            if (TAInput.getText().isEmpty()) {
+                notifyError("emptyInput");
+            }else {
+                TAOutput.setText(ROT.decypher(TAInput.getText(), (int) SNumber.getValue()));
+                notifyData("complete");
+            }
         }else{
-            TAOutput.setText("The entered message was a null");
+            notifyError("nullInput");
         }
     }
 
     private void cypherCaesar() {
         if (TAInput.getText() != null) {
-            TAOutput.setText(ROT.cypher(TAInput.getText(), 3, CurrentSpaceTreatment));
+            if (TAInput.getText().isEmpty()){
+                notifyError("emptyInput");
+            }else {
+                TAOutput.setText(ROT.cypher(TAInput.getText(), 3, CurrentSpaceTreatment));
+                notifyData("complete");
+            }
         }else{
-            TAOutput.setText("THe entered message was a null");
+            notifyError("nullInput");
         }
     }
 
     private void decypherCaesar() {
         if (TAInput.getText() != null) {
-            TAOutput.setText(ROT.decypher(TAInput.getText(), 3));
+            if (TAInput.getText().isEmpty()) {
+                notifyError("emptyInput");
+            }else {
+                TAOutput.setText(ROT.decypher(TAInput.getText(), 3));
+                notifyData("complete");
+            }
         }else{
-            TAOutput.setText("The entered message was a null");
+            notifyError("nullInput");
         }
     }
 
     private void cypherVigenere () {
-        if ((TAInput.getText() != null) && (TFKey.getText()!=null)) {
-            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
+        if (TAInput.getText() != null) {
+            if(!TAInput.getText().isEmpty()) {
+                if (TFKey.getText()!=null) {
+                    if (!TFKey.getText().isEmpty()) {
+                        if (isValid(TFKey.getText())) {
+                            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
+                        } else {
+                            notifyError("invalidKey");
+                        }
+                    } else {
+                        notifyError("emptyKey");
+                    }
+                }else{
+                    notifyError("nullKey");
+                }
+            }else{
+                notifyError("emptyInput");
+            }
         }else{
-            TAOutput.setText("Either the message or the key was as null");
+            notifyError("nullInput");
         }
     }
 
     private void decypherVigenere () {
-        if ((TAInput.getText()!=null) && (TFKey.getText()!=null)) {
-            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
+        if (TAInput.getText()!=null) {
+            if (!TAInput.getText().isEmpty()) {
+                if (TFKey.getText() != null) {
+                    if (!TFKey.getText().isEmpty()) {
+                        if (isValid(TFKey.getText())) {
+                            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
+                            notifyData("completed");
+                        }else{
+                            notifyError("invalidKey");
+                        }
+                    }else{
+                        notifyError("emptyKey");
+                    }
+                }else{
+                    notifyError("nullKey");
+                }
+            }else{
+                notifyError("emptyInput");
+            }
         }else{
-            TAOutput.setText("Either the message or the key was a null");
+            notifyError("nullInput");
         }
     }
 
@@ -171,5 +224,50 @@ public class Controller {
             sb.append(s.charAt(i));
         }
         return sb.toString();
+    }
+
+    @FXML
+    private void notifyError (String s) {
+        if (s.contains("invalidKey")) {
+            LInformation.setText("THE KEY IS INVALID\n");
+        }
+        if (s.contains("nullKey")) {
+            LInformation.setText("THE KEY IS NULL\n");
+        }
+        if (s.contains("nullInput")) {
+            LInformation.setText("THE INPUT IS NULL\n");
+        }
+        if (s.contains("emptyKey")) {
+            LInformation.setText("THE KEY IS EMPTY\n");
+        }
+        if (s.contains("emptyInput")) {
+            LInformation.setText("THE INPUT IS EMPTY\n");
+        }
+    }
+
+    private boolean isValid (String s) {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (int i = 0; i<s.length(); i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(Character.toUpperCase(s.charAt(i)));
+            if (!alphabet.contains(sb)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void checkParameters () {
+        StringBuilder sb = new StringBuilder();
+        if (TAInput.getText() == null) {
+            sb.append("nullInput");
+        }
+        if (TFKey.getText()==null){
+            sb.append("nullKey");
+        }
+        if (!isValid(TFKey.getText())) {
+            sb.append("invalidKey");
+        }
+        notifyError(sb.toString());
     }
 }
