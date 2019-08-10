@@ -41,43 +41,24 @@ public class Utilities {
 
     public static String adjustKeyLength (String key, int length, String message) { //check this method (cracks when keeping spaces)
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        //----------------------------------------------------------------------------------
-        /*
-        StringBuilder sb = new StringBuilder ();
-        int round = 0;
-        for (int i = 0; i<length; i++) {
-            if (i<key.length()) {
-                sb.append(key.charAt(round));
-                round++;
-            }else{
-                StringBuilder sb2 = new StringBuilder();
-                sb2.append(Character.toUpperCase(message.charAt(round-key.length())));
-                System.out.println("Outside "+ i);
-                if (alphabet.contains(sb2)) {
-                    sb.append(sb2);
-                }else{
-                }
-            }
-        }*/
-        //---------------------------------------------------------------------------------
         int size = 0;
+        int round = 0;
         StringBuilder parsedKey = new StringBuilder();
-        while (size<length) { //add variable of round for here
+        while (size<=length) {
             if (size<key.length()) {
                 parsedKey.append(key.charAt(size));
-                size += 1;
+                round += 1;
             }else{
                 StringBuilder checker = new StringBuilder();
-                checker.append(message.charAt(size-key.length()));
+                char c = message.charAt(round-key.length());
+                checker.append(c);
                 if (alphabet.contains(checker)) {
-                    parsedKey.append(message.charAt(size)); //<--
-                    size+=1;
+                    parsedKey.append(c);
                 }
-                //round+=1 --> necessary
+                round+=1;
             }
+            size=parsedKey.length();
         }
-//        System.out.println(sb.toString());
-//        return sb.toString().toUpperCase();
         return parsedKey.toString().toUpperCase();
     }
 
@@ -109,5 +90,17 @@ public class Utilities {
             chars.add(s.charAt(i));
         }
         return chars;
+    }
+
+    public static int noSpaces (String s, String alphabet) {
+        int size=0;
+        for (int i = 0; i<s.length(); i++) {
+            StringBuilder sb = new StringBuilder ();
+            sb.append(s.charAt(i));
+            if(alphabet.contains(sb)) {
+                size++;
+            }
+        }
+        return size;
     }
 }
