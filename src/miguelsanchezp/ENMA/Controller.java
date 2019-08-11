@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Controller {
     @FXML
-    private RadioMenuItem RMIROT, RMICaesar, RMIVigenere;
+    private RadioMenuItem RMIROT, RMICaesar, RMIVigenere, RMITransposition;
     @FXML
     private Menu MMethods;
     @FXML
@@ -32,6 +32,7 @@ public class Controller {
         CypheringIds.add(RMIROT.getId());
         CypheringIds.add(RMICaesar.getId());
         CypheringIds.add(RMIVigenere.getId());
+        CypheringIds.add(RMITransposition.getId());
         RMIROT.setSelected(true);
         CBSpaces.setValue("Keep");
         CurrentSpaceTreatment=CBSpaces.getValue();
@@ -69,6 +70,13 @@ public class Controller {
         numberRequired(false);
         keyRequired(true);
     }
+    @FXML
+    private void handleTransposition () {
+        handleMethodRMI(RMITransposition.getId());
+        numberRequired(false);
+        keyRequired(true);
+        RBAutoKey.setDisable(true);
+    }
 
     @FXML
     private void handleButton () {
@@ -81,6 +89,9 @@ public class Controller {
         }
         if (method.equals("Vigenere")) {
             cypherVigenere();
+        }
+        if (method.equals("Transposition")) {
+            cypherTransposition();
         }
     }
 
@@ -169,14 +180,21 @@ public class Controller {
     }
 
     private void cypherVigenere () {
-        if (revised()) {
+        if (revised("alphabetical")) {
             TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
         }
     }
 
     private void decypherVigenere () {
-        if (revised()) {
+        if (revised("alphabetical")) {
             TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
+        }
+    }
+
+    private void cypherTransposition () {
+        if (revised("numerical")) {
+//            System.out.println("hey there :)");
+            TAOutput.setText(Transposition.cypher(TAInput.getText(), TFKey.getText()));
         }
     }
 
@@ -197,8 +215,8 @@ public class Controller {
             LInformation.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
         }
         switch (s) {
-            case "invalidKey":
-                LInformation.setText("THE KEY IS INVALID (REVISE SPACES, NUMBERS, SPECIAL CHARACTERS)");
+            case "notAlphabeticalKey":
+                LInformation.setText("THE KEY IS NOT ALPHABETICALLY PURE");
                 break;
             case "nullKey":
                 LInformation.setText("THE KEY IS NULL");
@@ -213,7 +231,10 @@ public class Controller {
                 LInformation.setText("THE INPUT IS EMPTY");
                 break;
             case "complete":
-                LInformation.setText("THE INPUT WAS SUCCESSFULLY CYPHERED :)");
+                LInformation.setText("THE INPUT HAS BEEN SUCCESSFULLY CYPHERED :)");
+                break;
+            case "notNumericalKey":
+                LInformation.setText("THE KEY IS NOT NUMERICALLY PURE");
                 break;
             default:
                 LInformation.setStyle("-fx-text-fill: red");
@@ -222,7 +243,7 @@ public class Controller {
         }
     }
 
-    private boolean isValid (String s) {
+    private boolean isAlphabetic(String s) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (int i = 0; i<s.length(); i++) {
             StringBuilder sb = new StringBuilder();
@@ -234,16 +255,38 @@ public class Controller {
         return true;
     }
 
-    private boolean revised () {
+    private boolean isNumeric (String s) {
+        String nums = "0123456789";
+        for (int i = 0; i<s.length(); i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(s.charAt(i));
+            if (!nums.contains(sb)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean revised (String s) {
         if (TAInput.getText() != null) {
             if(!TAInput.getText().isEmpty()) {
                 if (TFKey.getText()!=null) {
                     if (!TFKey.getText().isEmpty()) {
-                        if (isValid(TFKey.getText())) {
-                            notifyError("complete", 1);
-                            return true;
-                        } else {
-                            notifyError("invalidKey", 0);
+                        if (s.equals("alphabetical")) {
+                            if (isAlphabetic(TFKey.getText())) {
+                                notifyError("complete", 1);
+                                return true;
+                            } else {
+                                notifyError("notAlphabeticalKey", 0);
+                            }
+                        }
+                        if (s.equals("numerical")) {
+                            if (isNumeric(TFKey.getText())) {
+                                notifyError ("complete", 1);
+                                return true;
+                            }else{
+                                notifyError("notNumericalKey", 0);
+                            }
                         }
                     } else {
                         notifyError("emptyKey", 0);
