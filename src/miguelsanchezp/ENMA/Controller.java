@@ -137,7 +137,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue(), Configuration.getSpacesTreatment()));
+                TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue()));
                 notifyError("complete", 1);
             }
         }else{
@@ -163,7 +163,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()){
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.cypher(TAInput.getText(), 3, Configuration.getSpacesTreatment()));
+                TAOutput.setText(ROT.cypher(TAInput.getText(), 3));
                 notifyError("complete", 1);
             }
         }else{
@@ -186,7 +186,7 @@ public class Controller {
 
     private void cypherVigenere () {
         if (revised("alphabetical")) {
-            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), Configuration.getSpacesTreatment()));
+            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
         }
     }
 

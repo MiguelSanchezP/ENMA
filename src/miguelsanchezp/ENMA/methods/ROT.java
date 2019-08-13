@@ -9,8 +9,8 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 
 public class ROT {
 
-    public static String cypher (String message, int number, String treatment) {
-        ArrayList<Character> finalmessage = prepareWithTreatment(message, treatment);
+    public static String cypher (String message, int number) {
+        ArrayList<Character> finalmessage = prepareWithTreatment(message, Configuration.getSpacesTreatment());
         StringBuilder sb = new StringBuilder();
         for (char c : finalmessage) {
             StringBuilder sb2 = new StringBuilder();

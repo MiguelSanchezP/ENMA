@@ -9,8 +9,8 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 
 public class Vigenere {
 
-    public static String cypher (String message, String key, boolean autokey, String treatment) {
-        ArrayList<Character> finalmessage = prepareWithTreatment(message, treatment);
+    public static String cypher (String message, String key, boolean autokey) {
+        ArrayList<Character> finalmessage = prepareWithTreatment(message, Configuration.getSpacesTreatment());
         String finalmessagestr = Utilities.toString(finalmessage);
         String fixedKey;
         if (!autokey) {
