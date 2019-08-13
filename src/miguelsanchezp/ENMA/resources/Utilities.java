@@ -39,7 +39,7 @@ public class Utilities {
         return sb.toString().toUpperCase();
     }
 
-    public static String adjustKeyLength (String key, int length, String message) { //check this method (cracks when keeping spaces)
+    public static String adjustKeyLength (String key, int length, String message) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int size = 0;
         int round = 0;
@@ -59,6 +59,7 @@ public class Utilities {
             }
             size=parsedKey.length();
         }
+        parsedKey.setLength(message.length());
         return parsedKey.toString().toUpperCase();
     }
 
