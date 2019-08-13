@@ -2,15 +2,16 @@ package miguelsanchezp.ENMA;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import miguelsanchezp.ENMA.definitions.Configuration;
 import miguelsanchezp.ENMA.methods.*;
-
-import java.util.ArrayList;
 
 public class Controller {
     @FXML
     private RadioMenuItem RMIROT, RMICaesar, RMIVigenere, RMITransposition;
     @FXML
-    private Menu MMethods;
+    private RadioMenuItem RMI5Block, RMIPlain;
+    @FXML
+    private Menu MMethods, MOutput;
     @FXML
     private TextArea TAInput, TAOutput;
     @FXML
@@ -24,55 +25,59 @@ public class Controller {
     @FXML
     private RadioButton RBAutoKey;
 
-    private ArrayList<String> CypheringIds = new ArrayList<>();
     private String CurrentlySelectedID;
-    private String CurrentSpaceTreatment;
 
     public void initialize () {
-        CypheringIds.add(RMIROT.getId());
-        CypheringIds.add(RMICaesar.getId());
-        CypheringIds.add(RMIVigenere.getId());
-        CypheringIds.add(RMITransposition.getId());
         RMIROT.setSelected(true);
         CBSpaces.setValue("Keep");
-        CurrentSpaceTreatment=CBSpaces.getValue();
+        Configuration.setSpacesTreatment(CBSpaces.getValue());
         RBAutoKey.setSelected(true);
         handleROT();
     }
 
-    private void handleMethodRMI (String id) {
+    private void handleMethodRMI (String id, Menu menu) {
         CurrentlySelectedID=id;
-        for (int i= 0; i<CypheringIds.size(); i++) {
-            if (!MMethods.getItems().get(i).getId().equals(id)) {
-                RadioMenuItem rmi = (RadioMenuItem) MMethods.getItems().get(i);
+        for (int i= 0; i<menu.getItems().size(); i++) {
+            if (!menu.getItems().get(i).getId().equals(id)) {
+                RadioMenuItem rmi = (RadioMenuItem) menu.getItems().get(i);
                 rmi.setSelected(false);
             }
         }
     }
 
     @FXML
+    public void handleRMI5Block () {
+        handleMethodRMI(RMI5Block.getId(), MOutput);
+    }
+
+    @FXML
+    public void handleRMIPlain () {
+        handleMethodRMI(RMIPlain.getId(), MOutput);
+    }
+
+    @FXML
     private void handleROT () {
-        handleMethodRMI(RMIROT.getId());
+        handleMethodRMI(RMIROT.getId(), MMethods);
         numberRequired(true);
         keyRequired(false);
     }
 
     @FXML
     private void handleCaesar() {
-        handleMethodRMI(RMICaesar.getId());
+        handleMethodRMI(RMICaesar.getId(), MMethods);
         numberRequired(false);
         keyRequired(false);
     }
 
     @FXML
     private void handleVigenere () {
-        handleMethodRMI(RMIVigenere.getId());
+        handleMethodRMI(RMIVigenere.getId(), MMethods);
         numberRequired(false);
         keyRequired(true);
     }
     @FXML
     private void handleTransposition () {
-        handleMethodRMI(RMITransposition.getId());
+        handleMethodRMI(RMITransposition.getId(), MMethods);
         numberRequired(false);
         keyRequired(true);
         RBAutoKey.setDisable(true);
@@ -112,7 +117,7 @@ public class Controller {
     @FXML
     private void handleCBSpaces () {
         if (CBSpaces.getValue()!=null) {
-            CurrentSpaceTreatment = CBSpaces.getValue();
+            Configuration.setSpacesTreatment(CBSpaces.getValue());
         }
     }
 
@@ -132,7 +137,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue(), CurrentSpaceTreatment));
+                TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue(), Configuration.getSpacesTreatment()));
                 notifyError("complete", 1);
             }
         }else{
@@ -158,7 +163,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()){
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.cypher(TAInput.getText(), 3, CurrentSpaceTreatment));
+                TAOutput.setText(ROT.cypher(TAInput.getText(), 3, Configuration.getSpacesTreatment()));
                 notifyError("complete", 1);
             }
         }else{
@@ -181,7 +186,7 @@ public class Controller {
 
     private void cypherVigenere () {
         if (revised("alphabetical")) {
-            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), CurrentSpaceTreatment));
+            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected(), Configuration.getSpacesTreatment()));
         }
     }
 
