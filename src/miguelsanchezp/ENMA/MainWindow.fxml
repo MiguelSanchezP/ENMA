@@ -22,6 +22,12 @@
                 <RadioMenuItem text="Vigenère" fx:id="RMIVigenere" onAction="#handleVigenere"/>
                 <RadioMenuItem text="Transposition" fx:id="RMITransposition" onAction="#handleTransposition"/>
             </Menu>
+            <Menu text="Display">
+                <Menu text="Output message" fx:id="MOutput">
+                    <RadioMenuItem text="Blocks of 5" fx:id="RMI5Block" onAction="#handleRMI5Block"/>
+                    <RadioMenuItem text="Plain message" fx:id="RMIPlain" onAction="#handleRMIPlain"/>
+                </Menu>
+            </Menu>
         </MenuBar>
     </top>
     <center>
