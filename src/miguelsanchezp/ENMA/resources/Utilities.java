@@ -1,5 +1,7 @@
 package miguelsanchezp.ENMA.resources;
 
+import miguelsanchezp.ENMA.definitions.Configuration;
+
 import java.util.ArrayList;
 
 public class Utilities {
@@ -40,7 +42,6 @@ public class Utilities {
     }
 
     public static String adjustKeyLength (String key, int length, String message) {
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int size = 0;
         int round = 0;
         StringBuilder parsedKey = new StringBuilder();
@@ -52,7 +53,7 @@ public class Utilities {
                 StringBuilder checker = new StringBuilder();
                 char c = message.charAt(round-key.length());
                 checker.append(c);
-                if (alphabet.contains(checker)) {
+                if (Configuration.getAlphabet().contains(checker)) {
                     parsedKey.append(c);
                 }
                 round+=1;

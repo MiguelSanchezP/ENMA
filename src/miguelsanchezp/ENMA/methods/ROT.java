@@ -1,5 +1,6 @@
 package miguelsanchezp.ENMA.methods;
 
+import miguelsanchezp.ENMA.definitions.Configuration;
 import miguelsanchezp.ENMA.resources.Utilities;
 
 import java.util.ArrayList;
@@ -8,21 +9,19 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 
 public class ROT {
 
-    private static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
     public static String cypher (String message, int number, String treatment) {
         ArrayList<Character> finalmessage = prepareWithTreatment(message, treatment);
         StringBuilder sb = new StringBuilder();
         for (char c : finalmessage) {
             StringBuilder sb2 = new StringBuilder();
             sb2.append(c);
-            if (alphabet.contains(sb2)) {
-                int pos = alphabet.indexOf(c);
+            if (Configuration.getAlphabet().contains(sb2)) {
+                int pos = Configuration.getAlphabet().indexOf(c);
                 pos += number;
                 if (pos > 25) {
                     pos -= 26;
                 }
-                sb.append(alphabet.charAt(pos));
+                sb.append(Configuration.getAlphabet().charAt(pos));
             } else {
                 sb.append(c);
             }
@@ -37,13 +36,13 @@ public class ROT {
             StringBuilder sb = new StringBuilder();
             char C = Character.toUpperCase(c);
             sb.append(C);
-            if (alphabet.contains(sb)) {
-                int pos = alphabet.indexOf(C);
+            if (Configuration.getAlphabet().contains(sb)) {
+                int pos = Configuration.getAlphabet().indexOf(C);
                 pos -= number;
                 if (pos<0) {
                     pos+=26;
                 }
-                sb2.append(alphabet.charAt(pos));
+                sb2.append(Configuration.getAlphabet().charAt(pos));
             }else{
                 sb2.append(C);
             }

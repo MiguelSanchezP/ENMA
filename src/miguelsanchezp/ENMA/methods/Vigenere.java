@@ -1,5 +1,6 @@
 package miguelsanchezp.ENMA.methods;
 
+import miguelsanchezp.ENMA.definitions.Configuration;
 import miguelsanchezp.ENMA.resources.Utilities;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import static miguelsanchezp.ENMA.resources.Utilities.*;
 
 public class Vigenere {
-    private static String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public static String cypher (String message, String key, boolean autokey, String treatment) {
         ArrayList<Character> finalmessage = prepareWithTreatment(message, treatment);
@@ -16,7 +16,7 @@ public class Vigenere {
         if (!autokey) {
             fixedKey = adjustKeyLength (key, finalmessagestr.length());
         }else{
-            fixedKey = adjustKeyLength (key, noSpaces(finalmessagestr, alphabet), finalmessagestr);
+            fixedKey = adjustKeyLength (key, noSpaces(finalmessagestr, Configuration.getAlphabet()), finalmessagestr);
         }
         int round = 0;
         StringBuilder cyphered = new StringBuilder();
@@ -25,8 +25,8 @@ public class Vigenere {
             StringBuilder sbK = new StringBuilder();
             sbM.append(c);
             sbK.append(fixedKey.charAt(round));
-            if (alphabet.contains(sbM) && alphabet.contains(sbK)) {
-                cyphered.append(alphabet.charAt((alphabet.indexOf(c)+alphabet.indexOf(fixedKey.charAt(round)))%alphabet.length()));
+            if (Configuration.getAlphabet().contains(sbM) && Configuration.getAlphabet().contains(sbK)) {
+                cyphered.append(Configuration.getAlphabet().charAt((Configuration.getAlphabet().indexOf(c)+Configuration.getAlphabet().indexOf(fixedKey.charAt(round)))%Configuration.getAlphabet().length()));
                 round++;
             }else{
                 cyphered.append(c);
@@ -47,12 +47,12 @@ public class Vigenere {
                 sbM.append(c);
                 StringBuilder sbK = new StringBuilder();
                 sbK.append(fixedKey.charAt(round));
-                if (alphabet.contains(sbM) && alphabet.contains(sbK)) {
-                    int pos = alphabet.indexOf(c)-alphabet.indexOf(fixedKey.charAt(round));
+                if (Configuration.getAlphabet().contains(sbM) && Configuration.getAlphabet().contains(sbK)) {
+                    int pos = Configuration.getAlphabet().indexOf(c)-Configuration.getAlphabet().indexOf(fixedKey.charAt(round));
                     if (pos < 0) {
-                        pos+=alphabet.length();
+                        pos+=Configuration.getAlphabet().length();
                     }
-                    decyphered.append(alphabet.charAt(pos));
+                    decyphered.append(Configuration.getAlphabet().charAt(pos));
                     round++;
                 }else{
                     decyphered.append(c);
@@ -67,13 +67,13 @@ public class Vigenere {
                 sbM.append(c);
                 StringBuilder sbK = new StringBuilder();
                 sbK.append(Character.toUpperCase(sbKF.charAt(round)));
-                if (alphabet.contains(sbM) && alphabet.contains(sbK)) {
-                    int pos = alphabet.indexOf(c)-alphabet.indexOf(sbKF.charAt(round));
+                if (Configuration.getAlphabet().contains(sbM) && Configuration.getAlphabet().contains(sbK)) {
+                    int pos = Configuration.getAlphabet().indexOf(c)-Configuration.getAlphabet().indexOf(sbKF.charAt(round));
                     if (pos < 0) {
-                        pos += alphabet.length();
+                        pos += Configuration.getAlphabet().length();
                     }
-                    decyphered.append(alphabet.charAt(pos));
-                    sbKF.append(alphabet.charAt(pos));
+                    decyphered.append(Configuration.getAlphabet().charAt(pos));
+                    sbKF.append(Configuration.getAlphabet().charAt(pos));
                     round++;
                 }else{
                     decyphered.append(c);
