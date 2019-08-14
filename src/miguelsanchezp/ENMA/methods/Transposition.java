@@ -1,7 +1,7 @@
 package miguelsanchezp.ENMA.methods;
 
 public class Transposition {
-    public static String cypher (String message, String key) {
+    public static String cypherHorizontal (String message, String key) {
         int pos = 0;
         StringBuilder cyphered = new StringBuilder();
         int vals = message.length();
@@ -15,6 +15,25 @@ public class Transposition {
                 cyphered.append('X');
             }
             pos++;
+        }
+        return cyphered.toString();
+    }
+
+    public static String cypherVertical (String message, String key) {
+//        int pos = 0;
+        StringBuilder cyphered = new StringBuilder();
+//        int vals = message.length();
+        int rounds = message.length()%key.length();
+        if (message.length()%key.length()!=0) {
+            rounds=message.length()%key.length()+1;
+        }
+        for (int i = 0; i<key.length(); i++) {
+            int keyVal = Character.getNumericValue(key.charAt(i));
+            for (int j = 0; j<rounds; j++) {
+                if (j*key.length()+keyVal < message.length()) {
+                    cyphered.append(message.charAt(j*key.length()+keyVal));
+                }
+            }
         }
         return cyphered.toString();
     }
