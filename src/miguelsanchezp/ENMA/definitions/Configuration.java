@@ -11,15 +11,23 @@ public class Configuration {
         alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 
-    public static void setSpacesTreatment(String spacesTreatment1) {
+    public void setSpacesTreatment(String spacesTreatment1) {
         spacesTreatment = spacesTreatment1;
     }
 
-    public static String getSpacesTreatment () {
+    public String getSpacesTreatment () {
         return spacesTreatment;
     }
 
-    public static String getAlphabet () {
+    public String getAlphabet () {
         return alphabet;
+    }
+
+    public String getOutputDisplay () {
+        return outputDisplay;
+    }
+
+    public void setOutputDisplay (String s) {
+        outputDisplay = s;
     }
 }
