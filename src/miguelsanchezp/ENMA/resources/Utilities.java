@@ -105,4 +105,12 @@ public class Utilities {
         }
         return size;
     }
+
+    public static int nearestUpperMultiple (int initialVal, int divisor) {
+        int i = initialVal;
+        while (i%divisor != 0) {
+            i++;
+        }
+        return i;
+    }
 }
