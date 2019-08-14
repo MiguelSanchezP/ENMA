@@ -20,7 +20,10 @@
                 <RadioMenuItem text="ROT" fx:id="RMIROT" onAction="#handleROT"/>
                 <RadioMenuItem text="Caesar" fx:id="RMICaesar" onAction="#handleCaesar"/>
                 <RadioMenuItem text="Vigenère" fx:id="RMIVigenere" onAction="#handleVigenere"/>
-                <RadioMenuItem text="Transposition" fx:id="RMITransposition" onAction="#handleTransposition"/>
+                <Menu text="Transposition" fx:id="MTransposition">
+                    <RadioMenuItem text="Horizontal" fx:id="RMIHorizontalTransposition" onAction="#handleHorizontalTransposition"/>
+                    <RadioMenuItem text="Vertical" fx:id="RMIVerticalTransposition" onAction="#handleVerticalTransposition"/>
+                </Menu>
             </Menu>
             <Menu text="Display">
                 <Menu text="Output message" fx:id="MOutput">
