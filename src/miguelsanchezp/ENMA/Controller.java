@@ -27,12 +27,15 @@ public class Controller {
 
     private String CurrentlySelectedID;
 
+    public static Configuration conf = new Configuration();
+
     public void initialize () {
         RMIROT.setSelected(true);
         CBSpaces.setValue("Keep");
-        Configuration.setSpacesTreatment(CBSpaces.getValue());
+        conf.setSpacesTreatment(CBSpaces.getValue());
         RBAutoKey.setSelected(true);
         handleROT();
+        handleRMIPlain();
     }
 
     private void handleMethodRMI (String id, Menu menu) {
@@ -52,11 +55,13 @@ public class Controller {
     @FXML
     public void handleRMI5Block () {
         handleMethodRMI(RMI5Block.getId(), MOutput);
+        conf.setOutputDisplay("5Block");
     }
 
     @FXML
     public void handleRMIPlain () {
         handleMethodRMI(RMIPlain.getId(), MOutput);
+        conf.setOutputDisplay("Plain");
     }
 
     @FXML
@@ -109,8 +114,11 @@ public class Controller {
         if (method.equals("Vigenere")) {
             cypherVigenere();
         }
-        if (method.equals("Transposition")) {
+        if (method.equals("HorizontalTransposition")) {
             cypherHorizontalTransposition();
+        }
+        if (method.equals("VerticalTransposition")) {
+            cypherVerticalTransposition();
         }
     }
 
@@ -131,7 +139,7 @@ public class Controller {
     @FXML
     private void handleCBSpaces () {
         if (CBSpaces.getValue()!=null) {
-            Configuration.setSpacesTreatment(CBSpaces.getValue());
+            conf.setSpacesTreatment(CBSpaces.getValue());
         }
     }
 
@@ -174,7 +182,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.cypher(TAInput.getText(), (int) SNumber.getValue()));
+                TAOutput.setText(formatOutput(ROT.cypher(TAInput.getText(), (int) SNumber.getValue())));
                 notifyError("complete", 1);
             }
         }else{
@@ -187,7 +195,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.decypher(TAInput.getText(), (int) SNumber.getValue()));
+                TAOutput.setText(formatOutput(ROT.decypher(TAInput.getText(), (int) SNumber.getValue())));
                 notifyError("complete", 1);
             }
         }else{
@@ -200,7 +208,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()){
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.cypher(TAInput.getText(), 3));
+                TAOutput.setText(formatOutput(ROT.cypher(TAInput.getText(), 3)));
                 notifyError("complete", 1);
             }
         }else{
@@ -213,7 +221,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(ROT.decypher(TAInput.getText(), 3));
+                TAOutput.setText(formatOutput(ROT.decypher(TAInput.getText(), 3)));
                 notifyError("complete", 1);
             }
         }else{
@@ -223,19 +231,25 @@ public class Controller {
 
     private void cypherVigenere () {
         if (revised("alphabetical")) {
-            TAOutput.setText(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
+            TAOutput.setText(formatOutput(Vigenere.cypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected())));
         }
     }
 
     private void decypherVigenere () {
         if (revised("alphabetical")) {
-            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
+            TAOutput.setText(formatOutput(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected())));
         }
     }
 
     private void cypherHorizontalTransposition() {
         if (revised("numerical")) {
-            TAOutput.setText(Transposition.cypherHorizontal(TAInput.getText(), TFKey.getText()));
+            TAOutput.setText(formatOutput(Transposition.cypherHorizontal(TAInput.getText(), TFKey.getText())));
+        }
+    }
+
+    private void cypherVerticalTransposition () {
+        if (revised("numerical")) {
+            TAOutput.setText(formatOutput(Transposition.cypherVertical(TAInput.getText(), TFKey.getText())));
         }
     }
 
@@ -342,5 +356,22 @@ public class Controller {
             notifyError("nullInput", 0);
         }
         return false;
+    }
+
+    private String formatOutput (String s) {
+        switch (conf.getOutputDisplay()) {
+            case "Plain":
+                return s;
+            case "5Block":
+                StringBuilder sb = new StringBuilder ();
+                for (int i = 1; i<=s.length(); i++) {
+                    sb.append(s.charAt(i-1));
+                    if (i%5 == 0) {
+                        sb.append(' ');
+                    }
+                }
+                return sb.toString();
+        }
+        return s;
     }
 }
