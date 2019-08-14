@@ -34,7 +34,6 @@
         </MenuBar>
     </top>
     <center>
-<!--        <GridPane vgap="10" hgap="10" alignment="CENTER" gridLinesVisible="true">-->
         <GridPane vgap="10" hgap="10" alignment="CENTER">
             <Label GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="LInformation"/>
             <TextArea GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="TAInput" promptText="Write here the message to be cyphered"/>
