@@ -1,8 +1,8 @@
 package miguelsanchezp.ENMA.resources;
 
-import miguelsanchezp.ENMA.definitions.Configuration;
-
 import java.util.ArrayList;
+
+import static miguelsanchezp.ENMA.Controller.conf;
 
 public class Utilities {
     private static ArrayList<Character> prepareMessageNoSpace(String message) {
@@ -53,7 +53,7 @@ public class Utilities {
                 StringBuilder checker = new StringBuilder();
                 char c = message.charAt(round-key.length());
                 checker.append(c);
-                if (Configuration.getAlphabet().contains(checker)) {
+                if (conf.getAlphabet().contains(checker)) {
                     parsedKey.append(c);
                 }
                 round+=1;
@@ -94,12 +94,12 @@ public class Utilities {
         return chars;
     }
 
-    public static int noSpaces (String s, String alphabet) {
+    public static int noSpaces (String s) {
         int size=0;
         for (int i = 0; i<s.length(); i++) {
             StringBuilder sb = new StringBuilder ();
             sb.append(s.charAt(i));
-            if(alphabet.contains(sb)) {
+            if(conf.getAlphabet().contains(sb)) {
                 size++;
             }
         }
