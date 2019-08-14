@@ -7,11 +7,11 @@ import miguelsanchezp.ENMA.methods.*;
 
 public class Controller {
     @FXML
-    private RadioMenuItem RMIROT, RMICaesar, RMIVigenere, RMITransposition;
+    private RadioMenuItem RMIROT, RMICaesar, RMIVigenere, RMIHorizontalTransposition, RMIVerticalTransposition;
     @FXML
     private RadioMenuItem RMI5Block, RMIPlain;
     @FXML
-    private Menu MMethods, MOutput;
+    private Menu MMethods, MOutput, MTransposition;
     @FXML
     private TextArea TAInput, TAOutput;
     @FXML
@@ -39,8 +39,12 @@ public class Controller {
         CurrentlySelectedID=id;
         for (int i= 0; i<menu.getItems().size(); i++) {
             if (!menu.getItems().get(i).getId().equals(id)) {
-                RadioMenuItem rmi = (RadioMenuItem) menu.getItems().get(i);
-                rmi.setSelected(false);
+                if (menu.getItems().get(i).getId().startsWith("RMI")) {
+                    RadioMenuItem rmi = (RadioMenuItem) menu.getItems().get(i);
+                    rmi.setSelected(false);
+                }else{
+                    clearMenu (menu, i);
+                }
             }
         }
     }
@@ -76,8 +80,18 @@ public class Controller {
         keyRequired(true);
     }
     @FXML
-    private void handleTransposition () {
-        handleMethodRMI(RMITransposition.getId(), MMethods);
+    private void handleHorizontalTransposition () {
+        handleMethodRMI(RMIHorizontalTransposition.getId(), MTransposition);
+        selectedMenu(MTransposition, MMethods);
+        numberRequired(false);
+        keyRequired(true);
+        RBAutoKey.setDisable(true);
+    }
+
+    @FXML
+    private void handleVerticalTransposition () {
+        handleMethodRMI(RMIVerticalTransposition.getId(), MTransposition);
+        selectedMenu(MTransposition, MMethods);
         numberRequired(false);
         keyRequired(true);
         RBAutoKey.setDisable(true);
@@ -96,7 +110,7 @@ public class Controller {
             cypherVigenere();
         }
         if (method.equals("Transposition")) {
-            cypherTransposition();
+            cypherHorizontalTransposition();
         }
     }
 
@@ -119,6 +133,29 @@ public class Controller {
         if (CBSpaces.getValue()!=null) {
             Configuration.setSpacesTreatment(CBSpaces.getValue());
         }
+    }
+
+    private void selectedMenu (Menu children, Menu parent) {
+        for (int i = 0; i<parent.getItems().size(); i++) {
+            if (parent.getItems().get(i).getId().startsWith("RMI")) {
+                RadioMenuItem rmi = (RadioMenuItem) parent.getItems().get(i);
+                rmi.setSelected(false);
+            }else{
+                clearMenu (parent, i);
+            }
+        }
+        String s = "✓ " + children.getText();
+        children.setText(s);
+    }
+
+    private void clearMenu (Menu menu, int i) {
+        if (menu.getItems().get(i).getText().startsWith("✓ ")) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(menu.getItems().get(i).getText());
+            sb.delete(0, 1);
+            menu.getItems().get(i).setText(sb.toString());
+        }
+
     }
 
     private void numberRequired (boolean b) {
@@ -196,10 +233,9 @@ public class Controller {
         }
     }
 
-    private void cypherTransposition () {
+    private void cypherHorizontalTransposition() {
         if (revised("numerical")) {
-//            System.out.println("hey there :)");
-            TAOutput.setText(Transposition.cypher(TAInput.getText(), TFKey.getText()));
+            TAOutput.setText(Transposition.cypherHorizontal(TAInput.getText(), TFKey.getText()));
         }
     }
 
