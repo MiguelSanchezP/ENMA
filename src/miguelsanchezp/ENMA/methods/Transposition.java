@@ -2,6 +2,8 @@ package miguelsanchezp.ENMA.methods;
 
 import miguelsanchezp.ENMA.resources.Utilities;
 
+import java.util.ArrayList;
+
 public class Transposition {
     public static String cypherHorizontal (String message, String key) {
         int pos = 0;
@@ -19,6 +21,30 @@ public class Transposition {
             pos++;
         }
         return cyphered.toString().toUpperCase();
+    }
+
+    public static String decypherHorizontal (String message, String key) {
+        ArrayList<Character> decypheredTemp = new ArrayList<>();
+        for (int i = 0; i<message.length(); i++) {
+            decypheredTemp.add('X');
+        }
+        int round = 0;
+        int lap = 0;
+        for (int i = 0; i<message.length(); i++) {
+            int num = Character.getNumericValue(key.charAt(round));
+            System.out.println(i + " : " + (lap*key.length()+num) + " : " + message.charAt(i));
+            decypheredTemp.set(lap*key.length()+num, message.charAt(i));
+            round++;
+            if (round%key.length()==0) {
+                lap++;
+                round = 0;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Character c : decypheredTemp) {
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
     public static String cypherVertical (String message, String key) {
