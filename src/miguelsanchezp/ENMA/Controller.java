@@ -31,6 +31,7 @@ public class Controller {
 
     public void initialize () {
         RMIROT.setSelected(true);
+        RMIPlain.setSelected(true);
         CBSpaces.setValue("Keep");
         conf.setSpacesTreatment(CBSpaces.getValue());
         RBAutoKey.setSelected(true);
@@ -133,6 +134,9 @@ public class Controller {
          }
          if (method.equals("Vigenere")) {
              decypherVigenere();
+         }
+         if (method.equals("HorizontalTransposition")) {
+             decypherHorizontalTransposition();
          }
     }
 
@@ -244,6 +248,12 @@ public class Controller {
     private void cypherHorizontalTransposition() {
         if (revised("numerical")) {
             TAOutput.setText(formatOutput(Transposition.cypherHorizontal(TAInput.getText(), TFKey.getText())));
+        }
+    }
+
+    private void decypherHorizontalTransposition () {
+        if (revised("numerical")) {
+            TAOutput.setText(Transposition.decypherHorizontal(TAInput.getText(), TFKey.getText()));
         }
     }
 
