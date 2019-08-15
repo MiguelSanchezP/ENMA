@@ -138,6 +138,9 @@ public class Controller {
          if (method.equals("HorizontalTransposition")) {
              decypherHorizontalTransposition();
          }
+         if (method.equals("VerticalTransposition")) {
+             decypherVerticalTransposition();
+         }
     }
 
     @FXML
@@ -260,6 +263,13 @@ public class Controller {
     private void cypherVerticalTransposition () {
         if (revised("numerical")) {
             TAOutput.setText(formatOutput(Transposition.cypherVertical(TAInput.getText(), TFKey.getText())));
+        }
+    }
+
+    private void decypherVerticalTransposition () {
+        if (revised("numerical")) {
+            System.out.println("Acceso");
+            TAOutput.setText(Transposition.decypherVertical(TAInput.getText(), TFKey.getText()));
         }
     }
 
