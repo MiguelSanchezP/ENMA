@@ -195,7 +195,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(formatOutput(ROT.decypher(TAInput.getText(), (int) SNumber.getValue())));
+                TAOutput.setText(ROT.decypher(TAInput.getText(), (int) SNumber.getValue()));
                 notifyError("complete", 1);
             }
         }else{
@@ -221,7 +221,7 @@ public class Controller {
             if (TAInput.getText().isEmpty()) {
                 notifyError("emptyInput", 0);
             }else {
-                TAOutput.setText(formatOutput(ROT.decypher(TAInput.getText(), 3)));
+                TAOutput.setText(ROT.decypher(TAInput.getText(), 3));
                 notifyError("complete", 1);
             }
         }else{
@@ -237,7 +237,7 @@ public class Controller {
 
     private void decypherVigenere () {
         if (revised("alphabetical")) {
-            TAOutput.setText(formatOutput(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected())));
+            TAOutput.setText(Vigenere.decypher(TAInput.getText(), TFKey.getText(), RBAutoKey.isSelected()));
         }
     }
 
