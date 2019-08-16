@@ -71,18 +71,20 @@ public class Transposition {
     public static String decypherVertical (String message, String key) {
         System.out.println("inside");
         ArrayList<Character> decypheredTemp = new ArrayList<>();
-        int rounds = message.length()%key.length();
+        int rounds = message.length()/key.length();
         if (message.length()%key.length() != 0) {
-            rounds = message.length()%key.length()+1;
+            rounds = (message.length()/key.length())+1;
         }
+        System.out.println(rounds);
         for (int i = 0; i<key.length()*rounds; i++) {
             decypheredTemp.add('X');
         }
         int pos = 0;
         for (int i = 0; i<key.length(); i++) {
+//            System.out.println("getting in");
             int num = Character.getNumericValue(key.charAt(i));
             for (int j = 0; j<rounds; j++) {
-                System.out.println(":)");
+//                System.out.println(":)");
                 if (pos < message.length()) {
                     decypheredTemp.set(key.length() * j + num, message.charAt(pos));
                     pos++;
