@@ -1,10 +1,6 @@
 package miguelsanchezp.ENMA.methods;
-
-import miguelsanchezp.ENMA.definitions.Configuration;
 import miguelsanchezp.ENMA.resources.Utilities;
-
 import java.util.ArrayList;
-
 import static miguelsanchezp.ENMA.Controller.conf;
 import static miguelsanchezp.ENMA.resources.Utilities.*;
 
