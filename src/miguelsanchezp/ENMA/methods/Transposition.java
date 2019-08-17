@@ -20,7 +20,7 @@ public class Transposition {
             }
             pos++;
         }
-        return cyphered.toString().toUpperCase();
+        return cyphered.toString();
     }
 
     public static String decypherHorizontal (String message, String key) {
@@ -65,33 +65,28 @@ public class Transposition {
                 }
             }
         }
-        return cyphered.toString().toUpperCase();
+        return cyphered.toString();
     }
 
     public static String decypherVertical (String message, String key) {
-        System.out.println("inside");
         ArrayList<Character> decypheredTemp = new ArrayList<>();
         int rounds = message.length()/key.length();
         if (message.length()%key.length() != 0) {
             rounds = (message.length()/key.length())+1;
         }
-        System.out.println(rounds);
         for (int i = 0; i<key.length()*rounds; i++) {
             decypheredTemp.add('X');
         }
         int pos = 0;
         for (int i = 0; i<key.length(); i++) {
-//            System.out.println("getting in");
             int num = Character.getNumericValue(key.charAt(i));
             for (int j = 0; j<rounds; j++) {
-//                System.out.println(":)");
                 if (pos < message.length()) {
                     decypheredTemp.set(key.length() * j + num, message.charAt(pos));
                     pos++;
                 }
             }
         }
-        System.out.println(decypheredTemp.toString());
         StringBuilder sb = new StringBuilder();
         for (Character c : decypheredTemp) {
             sb.append(c);
