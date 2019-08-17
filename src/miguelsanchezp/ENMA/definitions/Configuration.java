@@ -2,13 +2,15 @@ package miguelsanchezp.ENMA.definitions;
 
 public class Configuration {
     private static String spacesTreatment;
-    private static String outputDisplay;
+    private static String outputBlocks;
     private static String alphabet;
+    private static String outputSize;
 
     public Configuration () {
         spacesTreatment="Keep";
-        outputDisplay="Plain";
+        outputBlocks ="Plain";
         alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        outputSize="Alternatedcase";
     }
 
     public void setSpacesTreatment(String spacesTreatment1) {
@@ -23,11 +25,19 @@ public class Configuration {
         return alphabet;
     }
 
-    public String getOutputDisplay () {
-        return outputDisplay;
+    public String getOutputBlocks() {
+        return outputBlocks;
     }
 
     public void setOutputDisplay (String s) {
-        outputDisplay = s;
+        outputBlocks = s;
+    }
+
+    public void setOutputSize (String s) {
+        outputSize = s;
+    }
+
+    public String getOutputSize () {
+        return outputSize;
     }
 }
