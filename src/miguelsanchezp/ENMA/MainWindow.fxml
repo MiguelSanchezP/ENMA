@@ -26,9 +26,14 @@
                 </Menu>
             </Menu>
             <Menu text="Display">
-                <Menu text="Output message" fx:id="MOutput">
+                <Menu text="Output message" fx:id="MMessage">
                     <RadioMenuItem text="Blocks of 5" fx:id="RMI5Block" onAction="#handleRMI5Block"/>
                     <RadioMenuItem text="Plain message" fx:id="RMIPlain" onAction="#handleRMIPlain"/>
+                </Menu>
+                <Menu text="Ouptut size" fx:id="MSize">
+                    <RadioMenuItem text="Upper Case" fx:id="RMIUppercase" onAction="#handleRMIUppercase"/>
+                    <RadioMenuItem text="Lower Case" fx:id="RMILowercase" onAction="#handleRMILowercase"/>
+                    <RadioMenuItem text="Alternated Case" fx:id="RMIAlternatedcase" onAction="#handleRMIAlternatedcase"/>
                 </Menu>
             </Menu>
         </MenuBar>
