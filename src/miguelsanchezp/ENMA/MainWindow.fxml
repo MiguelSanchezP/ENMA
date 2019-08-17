@@ -33,7 +33,6 @@
                 <Menu text="Ouptut size" fx:id="MSize">
                     <RadioMenuItem text="Upper Case" fx:id="RMIUppercase" onAction="#handleRMIUppercase"/>
                     <RadioMenuItem text="Lower Case" fx:id="RMILowercase" onAction="#handleRMILowercase"/>
-                    <RadioMenuItem text="Alternated Case" fx:id="RMIAlternatedcase" onAction="#handleRMIAlternatedcase"/>
                 </Menu>
             </Menu>
         </MenuBar>
