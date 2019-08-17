@@ -49,9 +49,9 @@ public class Transposition {
 
     public static String cypherVertical (String message, String key) {
         StringBuilder cyphered = new StringBuilder();
-        int rounds = message.length()%key.length();
+        int rounds = message.length()/key.length();
         if (message.length()%key.length()!=0) {
-            rounds=message.length()%key.length()+1;
+            rounds=message.length()/key.length()+1;
         }
         for (int i = 0; i<key.length(); i++) {
             int keyVal = Character.getNumericValue(key.charAt(i));
