@@ -19,8 +19,8 @@ public class Vigenere {
         for (int i = 0; i<messagePrep.length(); i++) {
             StringBuilder sbM = new StringBuilder();
             StringBuilder sbK = new StringBuilder();
-            sbM.append(messagePrep.charAt(i));
-            sbK.append(fixedKey.charAt(round));
+            sbM.append(Character.toUpperCase(messagePrep.charAt(i)));
+            sbK.append(Character.toUpperCase(fixedKey.charAt(round)));
             if (conf.getAlphabet().contains(sbM) && conf.getAlphabet().contains(sbK)) {
                 cyphered.append(conf.getAlphabet().charAt((conf.getAlphabet().indexOf(messagePrep.charAt(i))+conf.getAlphabet().indexOf(fixedKey.charAt(round)))%conf.getAlphabet().length()));
                 round++;

@@ -12,9 +12,9 @@ public class ROT {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i<messagePrep.length(); i++) {
             StringBuilder sb2 = new StringBuilder();
-            sb2.append(messagePrep.charAt(i));
+            sb2.append(Character.toUpperCase(messagePrep.charAt(i)));
             if (conf.getAlphabet().contains(sb2)) {
-                int pos = Character.toUpperCase(conf.getAlphabet().indexOf(messagePrep.charAt(i)));
+                int pos = conf.getAlphabet().indexOf(Character.toUpperCase(messagePrep.charAt(i)));
                 pos += number;
                 if (pos > 25) {
                     pos -= 26;
