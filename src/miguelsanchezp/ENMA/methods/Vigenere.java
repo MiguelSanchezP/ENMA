@@ -7,7 +7,7 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 public class Vigenere {
 
     public static String cypher (String message, String key, boolean autokey) {
-        String messagePrep = InputPreparation(message);
+        String messagePrep = InputFormatter(message);
         String fixedKey;
         if (!autokey) {
             fixedKey = adjustKeyLength (key, messagePrep.length());

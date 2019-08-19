@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Transposition {
     public static String cypherHorizontal (String message, String key) {
-        String messagePrep = Utilities.InputPreparation(message);
+        String messagePrep = Utilities.InputFormatter(message);
         int pos = 0;
         StringBuilder cyphered = new StringBuilder();
         int vals = messagePrep.length();
@@ -49,7 +49,7 @@ public class Transposition {
     }
 
     public static String cypherVertical (String message, String key) {
-        String messagePrep = Utilities.InputPreparation(message);
+        String messagePrep = Utilities.InputFormatter(message);
         StringBuilder cyphered = new StringBuilder();
         int rounds = messagePrep.length()/key.length();
         if (messagePrep.length()%key.length()!=0) {

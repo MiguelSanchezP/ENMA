@@ -1,7 +1,5 @@
 package miguelsanchezp.ENMA.methods;
 
-import miguelsanchezp.ENMA.resources.Utilities;
-
 import java.util.ArrayList;
 
 import static miguelsanchezp.ENMA.Controller.conf;
@@ -10,7 +8,7 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 public class ROT {
 
     public static String cypher (String message, int number) {
-        String messagePrep = InputPreparation(message);
+        String messagePrep = InputFormatter(message);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i<messagePrep.length(); i++) {
             StringBuilder sb2 = new StringBuilder();

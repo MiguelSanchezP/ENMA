@@ -87,7 +87,7 @@ public class Utilities {
         return sb.toString();
     }
 
-    public static String InputPreparation(String message) {
+    public static String InputFormatter(String message) {
         switch (conf.getSpacesTreatment()) {
             case "Keep":
                 return message;
