@@ -7,26 +7,25 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 public class Vigenere {
 
     public static String cypher (String message, String key, boolean autokey) {
-        ArrayList<Character> finalmessage = prepareWithTreatment(message, conf.getSpacesTreatment());
-        String finalmessagestr = Utilities.toString(finalmessage);
+        String messagePrep = InputPreparation(message);
         String fixedKey;
         if (!autokey) {
-            fixedKey = adjustKeyLength (key, finalmessagestr.length());
+            fixedKey = adjustKeyLength (key, messagePrep.length());
         }else{
-            fixedKey = adjustKeyLength (key, noSpaces(finalmessagestr), finalmessagestr);
+            fixedKey = adjustKeyLength (key, noSpaces(messagePrep), messagePrep);
         }
         int round = 0;
         StringBuilder cyphered = new StringBuilder();
-        for (char c : finalmessage) {
+        for (int i = 0; i<messagePrep.length(); i++) {
             StringBuilder sbM = new StringBuilder();
             StringBuilder sbK = new StringBuilder();
-            sbM.append(c);
+            sbM.append(messagePrep.charAt(i));
             sbK.append(fixedKey.charAt(round));
             if (conf.getAlphabet().contains(sbM) && conf.getAlphabet().contains(sbK)) {
-                cyphered.append(conf.getAlphabet().charAt((conf.getAlphabet().indexOf(c)+conf.getAlphabet().indexOf(fixedKey.charAt(round)))%conf.getAlphabet().length()));
+                cyphered.append(conf.getAlphabet().charAt((conf.getAlphabet().indexOf(messagePrep.charAt(i))+conf.getAlphabet().indexOf(fixedKey.charAt(round)))%conf.getAlphabet().length()));
                 round++;
             }else{
-                cyphered.append(c);
+                cyphered.append(messagePrep.charAt(i));
             }
         }
         return cyphered.toString();
