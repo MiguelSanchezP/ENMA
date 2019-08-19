@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import static miguelsanchezp.ENMA.Controller.conf;
 
 public class Utilities {
+
     public static String adjustKeyLength (String key, int length) {
         StringBuilder sb = new StringBuilder ();
         for (int i = key.length(); i<length+key.length(); i++) {
