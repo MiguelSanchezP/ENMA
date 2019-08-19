@@ -1,6 +1,5 @@
 package miguelsanchezp.ENMA.methods;
 
-import miguelsanchezp.ENMA.definitions.Configuration;
 import miguelsanchezp.ENMA.resources.Utilities;
 
 import java.util.ArrayList;
@@ -11,27 +10,27 @@ import static miguelsanchezp.ENMA.resources.Utilities.*;
 public class ROT {
 
     public static String cypher (String message, int number) {
-        ArrayList<Character> finalmessage = prepareWithTreatment(message, conf.getSpacesTreatment());
+        String messagePrep = InputPreparation(message);
         StringBuilder sb = new StringBuilder();
-        for (char c : finalmessage) {
+        for (int i = 0; i<messagePrep.length(); i++) {
             StringBuilder sb2 = new StringBuilder();
-            sb2.append(c);
+            sb2.append(messagePrep.charAt(i));
             if (conf.getAlphabet().contains(sb2)) {
-                int pos = conf.getAlphabet().indexOf(c);
+                int pos = Character.toUpperCase(conf.getAlphabet().indexOf(messagePrep.charAt(i)));
                 pos += number;
                 if (pos > 25) {
                     pos -= 26;
                 }
                 sb.append(conf.getAlphabet().charAt(pos));
             } else {
-                sb.append(c);
+                sb.append(messagePrep.charAt(i));
             }
         }
         return sb.toString();
     }
 
     public static String decypher (String message, int number) {
-        ArrayList<Character> message2 = Utilities.toArray(message);
+        ArrayList<Character> message2 = toArray(message);
         StringBuilder sb2 = new StringBuilder();
         for (char c : message2) {
             StringBuilder sb = new StringBuilder();
