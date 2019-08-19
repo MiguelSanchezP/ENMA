@@ -6,14 +6,15 @@ import java.util.ArrayList;
 
 public class Transposition {
     public static String cypherHorizontal (String message, String key) {
+        String messagePrep = Utilities.InputPreparation(message);
         int pos = 0;
         StringBuilder cyphered = new StringBuilder();
-        int vals = message.length();
+        int vals = messagePrep.length();
         while (vals>0) {
             int cypherChar = ((pos/key.length())*key.length());
             int character = Character.getNumericValue(key.charAt(pos%key.length()));
-            if (!((cypherChar+character) >= message.length())) {
-                cyphered.append(message.charAt(cypherChar+character));
+            if (!((cypherChar+character) >= messagePrep.length())) {
+                cyphered.append(messagePrep.charAt(cypherChar+character));
                 vals--;
             }else{
                 cyphered.append('X');
@@ -48,18 +49,19 @@ public class Transposition {
     }
 
     public static String cypherVertical (String message, String key) {
+        String messagePrep = Utilities.InputPreparation(message);
         StringBuilder cyphered = new StringBuilder();
-        int rounds = message.length()/key.length();
-        if (message.length()%key.length()!=0) {
-            rounds=message.length()/key.length()+1;
+        int rounds = messagePrep.length()/key.length();
+        if (messagePrep.length()%key.length()!=0) {
+            rounds=messagePrep.length()/key.length()+1;
         }
         for (int i = 0; i<key.length(); i++) {
             int keyVal = Character.getNumericValue(key.charAt(i));
             for (int j = 0; j<rounds; j++) {
-                if (j*key.length()+keyVal < message.length()) {
+                if (j*key.length()+keyVal < messagePrep.length()) {
                     cyphered.append(message.charAt(j*key.length()+keyVal));
                 }else{
-                    if (j*key.length()+keyVal < Utilities.nearestUpperMultiple(message.length(), key.length())) {
+                    if (j*key.length()+keyVal < Utilities.nearestUpperMultiple(messagePrep.length(), key.length())) {
                         cyphered.append('X');
                     }
                 }
