@@ -84,7 +84,6 @@ public class Utilities {
                 sb.append('X');
             }
         }
-        System.out.println("get here");
         return sb.toString();
     }
 
