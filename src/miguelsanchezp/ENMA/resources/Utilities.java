@@ -5,34 +5,6 @@ import java.util.ArrayList;
 import static miguelsanchezp.ENMA.Controller.conf;
 
 public class Utilities {
-    private static ArrayList<Character> prepareMessageNoSpace(String message) {
-        ArrayList<Character> characters = new ArrayList<>();
-        for (int i = 0; i<message.length(); i++) {
-            if (message.charAt(i) != ' ') {
-                characters.add(Character.toUpperCase(message.charAt(i)));
-            }
-        }
-        return characters;
-    }
-    private static ArrayList<Character> prepareMessageSpaceX (String message) {
-        ArrayList<Character> characters = new ArrayList<>();
-        for (int i = 0; i<message.length(); i++) {
-            if (message.charAt(i) == ' ') {
-                characters.add('X');
-            }else{
-                characters.add(Character.toUpperCase(message.charAt(i)));
-            }
-        }
-        return characters;
-    }
-    private static ArrayList<Character> prepareMessageSpaced (String message) {
-        ArrayList<Character> characters = new ArrayList<>();
-        for (int i = 0; i<message.length(); i++) {
-            characters.add(Character.toUpperCase(message.charAt(i)));
-        }
-        return characters;
-    }
-
     public static String adjustKeyLength (String key, int length) {
         StringBuilder sb = new StringBuilder ();
         for (int i = key.length(); i<length+key.length(); i++) {
@@ -64,28 +36,6 @@ public class Utilities {
         return parsedKey.toString().toUpperCase();
     }
 
-    public static ArrayList<Character> prepareWithTreatment (String message, String treatment) {
-        ArrayList<Character> finalmessage = new ArrayList<>();
-        if (treatment.equals("Keep")) {
-            finalmessage = prepareMessageSpaced(message);
-        }
-        if (treatment.equals("X")) {
-            finalmessage = prepareMessageSpaceX(message);
-        }
-        if (treatment.equals("Ignore")) {
-            finalmessage = prepareMessageNoSpace(message);
-        }
-        return finalmessage;
-    }
-
-    public static String toString (ArrayList<Character> a) {
-        StringBuilder sb = new StringBuilder();
-        for (char c : a) {
-            sb.append(c);
-        }
-        return sb.toString();
-    }
-
     public static ArrayList<Character> toArray (String s) {
         ArrayList<Character> chars = new ArrayList<>();
         for (int i = 0; i<s.length(); i++) {
@@ -112,5 +62,39 @@ public class Utilities {
             i++;
         }
         return i;
+    }
+
+    private static String NoSpacedString (String message) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i<message.length(); i++) {
+            if (message.charAt(i) != ' ') {
+                sb.append(message.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    private static String XSpacedString (String message) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i<message.length(); i++) {
+            if (message.charAt(i)!=' ') {
+                sb.append(message.charAt(i));
+            }else{
+                sb.append('X');
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String InputPreparation(String message) {
+        switch (conf.getSpacesTreatment()) {
+            case "Keep":
+                return message;
+            case "Ignore":
+                return NoSpacedString(message);
+            case "X":
+                return XSpacedString(message);
+        }
+        return message;
     }
 }

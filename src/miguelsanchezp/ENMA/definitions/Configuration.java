@@ -10,7 +10,7 @@ public class Configuration {
         spacesTreatment="Keep";
         outputBlocks ="Plain";
         alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        outputSize="Alternatedcase";
+        outputSize="Uppercase";
     }
 
     public void setSpacesTreatment(String spacesTreatment1) {

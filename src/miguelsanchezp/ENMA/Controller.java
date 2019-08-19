@@ -11,7 +11,9 @@ public class Controller {
     @FXML
     private RadioMenuItem RMI5Block, RMIPlain;
     @FXML
-    private Menu MMethods, MOutput, MTransposition;
+    private RadioMenuItem RMIUppercase, RMILowercase;
+    @FXML
+    private Menu MMethods, MMessage, MTransposition, MSize;
     @FXML
     private TextArea TAInput, TAOutput;
     @FXML
@@ -32,11 +34,13 @@ public class Controller {
     public void initialize () {
         RMIROT.setSelected(true);
         RMIPlain.setSelected(true);
+        RMIUppercase.setSelected(false);
         CBSpaces.setValue("Keep");
         conf.setSpacesTreatment(CBSpaces.getValue());
         RBAutoKey.setSelected(true);
         handleROT();
         handleRMIPlain();
+        handleRMIUppercase();
     }
 
     private void handleMethodRMI (String id, Menu menu) {
@@ -55,14 +59,26 @@ public class Controller {
 
     @FXML
     public void handleRMI5Block () {
-        handleMethodRMI(RMI5Block.getId(), MOutput);
+        handleMethodRMI(RMI5Block.getId(), MMessage);
         conf.setOutputDisplay("5Block");
     }
 
     @FXML
     public void handleRMIPlain () {
-        handleMethodRMI(RMIPlain.getId(), MOutput);
+        handleMethodRMI(RMIPlain.getId(), MMessage);
         conf.setOutputDisplay("Plain");
+    }
+
+    @FXML
+    public void handleRMIUppercase () {
+        handleMethodRMI(RMIUppercase.getId(), MSize);
+        conf.setOutputSize("Uppercase");
+    }
+
+    @FXML
+    public void handleRMILowercase () {
+        handleMethodRMI(RMILowercase.getId(), MSize);
+        conf.setOutputSize("Lowercase");
     }
 
     @FXML
@@ -379,18 +395,25 @@ public class Controller {
     }
 
     private String formatOutput (String s) {
-        switch (conf.getOutputDisplay()) {
+        StringBuilder sb = new StringBuilder();
+        switch (conf.getOutputBlocks()) {
             case "Plain":
-                return s;
+                sb.append(s);
+                break;
             case "5Block":
-                StringBuilder sb = new StringBuilder ();
                 for (int i = 1; i<=s.length(); i++) {
                     sb.append(s.charAt(i-1));
                     if (i%5 == 0) {
                         sb.append(' ');
                     }
                 }
-                return sb.toString();
+                break;
+        }
+        switch (conf.getOutputSize()) {
+            case "Lowercase":
+                return sb.toString().toLowerCase();
+            case "Uppercase":
+                return sb.toString().toUpperCase();
         }
         return s;
     }
