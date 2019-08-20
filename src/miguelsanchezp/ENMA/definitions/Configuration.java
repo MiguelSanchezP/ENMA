@@ -5,12 +5,22 @@ public class Configuration {
     private static String outputBlocks;
     private static String alphabet;
     private static String outputSize;
+    private static String method;
 
     public Configuration () {
         spacesTreatment="Keep";
         outputBlocks ="Plain";
         alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         outputSize="Uppercase";
+        method="ROT";
+    }
+
+    public void setMethod (String s) {
+        method = s;
+    }
+
+    public String getMethod () {
+        return method;
     }
 
     public void setSpacesTreatment(String spacesTreatment1) {

@@ -34,7 +34,7 @@ public class Controller {
     public void initialize () {
         RMIROT.setSelected(true);
         RMIPlain.setSelected(true);
-        RMIUppercase.setSelected(false);
+        RMIUppercase.setSelected(true);
         CBSpaces.setValue("Keep");
         conf.setSpacesTreatment(CBSpaces.getValue());
         RBAutoKey.setSelected(true);
@@ -44,7 +44,6 @@ public class Controller {
     }
 
     private void handleMethodRMI (String id, Menu menu) {
-        CurrentlySelectedID=id;
         for (int i= 0; i<menu.getItems().size(); i++) {
             if (!menu.getItems().get(i).getId().equals(id)) {
                 if (menu.getItems().get(i).getId().startsWith("RMI")) {
@@ -83,6 +82,7 @@ public class Controller {
 
     @FXML
     private void handleROT () {
+        conf.setMethod("ROT");
         handleMethodRMI(RMIROT.getId(), MMethods);
         numberRequired(true);
         keyRequired(false);
@@ -90,6 +90,7 @@ public class Controller {
 
     @FXML
     private void handleCaesar() {
+        conf.setMethod("Caesar");
         handleMethodRMI(RMICaesar.getId(), MMethods);
         numberRequired(false);
         keyRequired(false);
@@ -97,12 +98,14 @@ public class Controller {
 
     @FXML
     private void handleVigenere () {
+        conf.setMethod("Vigenere");
         handleMethodRMI(RMIVigenere.getId(), MMethods);
         numberRequired(false);
         keyRequired(true);
     }
     @FXML
     private void handleHorizontalTransposition () {
+        conf.setMethod("HorizontalTransposition");
         handleMethodRMI(RMIHorizontalTransposition.getId(), MTransposition);
         selectedMenu(MTransposition, MMethods);
         numberRequired(false);
@@ -112,6 +115,7 @@ public class Controller {
 
     @FXML
     private void handleVerticalTransposition () {
+        conf.setMethod("VerticalTransposition");
         handleMethodRMI(RMIVerticalTransposition.getId(), MTransposition);
         selectedMenu(MTransposition, MMethods);
         numberRequired(false);
