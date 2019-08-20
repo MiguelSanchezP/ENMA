@@ -125,6 +125,24 @@ public class Controller {
 
     @FXML
     private void handleButton () {
+        switch (conf.getMethod()) {
+            case "ROT":
+                cypherROT();
+                break;
+            case "Caesar":
+                cypherCaesar();
+                break;
+            case "Vigenere":
+                cypherVigenere();
+                break;
+            case "HorizontalTransposition":
+                cypherHorizontalTransposition();
+                break;
+            case "VerticalTransposition":
+                cypherVerticalTransposition();
+                break;
+        }
+        /*
         String method = getMethod();
         if (method.equals("ROT")) {
             cypherROT();
@@ -140,7 +158,7 @@ public class Controller {
         }
         if (method.equals("VerticalTransposition")) {
             cypherVerticalTransposition();
-        }
+        }*/
     }
 
     @FXML
