@@ -27,8 +27,6 @@ public class Controller {
     @FXML
     private RadioButton RBAutoKey;
 
-    private String CurrentlySelectedID;
-
     public static Configuration conf = new Configuration();
 
     public void initialize () {
@@ -142,42 +140,26 @@ public class Controller {
                 cypherVerticalTransposition();
                 break;
         }
-        /*
-        String method = getMethod();
-        if (method.equals("ROT")) {
-            cypherROT();
-        }
-        if (method.equals("Caesar")){
-            cypherCaesar();
-        }
-        if (method.equals("Vigenere")) {
-            cypherVigenere();
-        }
-        if (method.equals("HorizontalTransposition")) {
-            cypherHorizontalTransposition();
-        }
-        if (method.equals("VerticalTransposition")) {
-            cypherVerticalTransposition();
-        }*/
     }
 
     @FXML
     private void handleButtonD () {
-         String method = getMethod();
-         if (method.equals("ROT")) {
-             decypherROT();
-         }
-         if (method.equals("Caesar")) {
-             decypherCaesar();
-         }
-         if (method.equals("Vigenere")) {
-             decypherVigenere();
-         }
-         if (method.equals("HorizontalTransposition")) {
-             decypherHorizontalTransposition();
-         }
-         if (method.equals("VerticalTransposition")) {
-             decypherVerticalTransposition();
+         switch (conf.getMethod()) {
+             case "ROT":
+                 decypherROT();
+                 break;
+             case "Caesar":
+                 decypherCaesar();
+                 break;
+             case "Vigenere":
+                 decypherVigenere();
+                 break;
+             case "HorizontalTransposition":
+                 decypherHorizontalTransposition();
+                 break;
+             case "VerticalTransposition":
+                 decypherVerticalTransposition();
+                 break;
          }
     }
 
@@ -309,15 +291,6 @@ public class Controller {
             System.out.println("Acceso");
             TAOutput.setText(Transposition.decypherVertical(TAInput.getText(), TFKey.getText()));
         }
-    }
-
-    private String getMethod () {
-        String s = CurrentlySelectedID;
-        StringBuilder sb = new StringBuilder ();
-        for (int i = 3; i<s.length(); i++) {
-            sb.append(s.charAt(i));
-        }
-        return sb.toString();
     }
 
     @FXML
